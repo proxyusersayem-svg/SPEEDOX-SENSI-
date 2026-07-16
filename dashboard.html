@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuantumAI - Active Market Analysis Terminal</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- TradingView Lightweight Charts for high-performance visualization -->
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+</head>
+<body>
+    <div class="dashboard-grid">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <span class="icon">⚡</span>
+                <span class="text">QUANTUM<span class="highlight">AI</span></span>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-tab="terminal">
+                    <span class="nav-icon">📊</span> Terminal
+                </button>
+                <button class="nav-item" id="logoutBtn">
+                    <span class="nav-icon">🔒</span> Logout
+                </button>
+            </nav>
+
+            <div class="sidebar-status-box">
+                <div class="status-indicator online"></div>
+                <div class="status-text">
+                    <p class="status-title">Quantum Engine</p>
+                    <p class="status-desc" id="connectionStatus">Connecting...</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="dashboard-header">
+                <div class="header-asset-selector">
+                    <label for="assetSelect" class="sr-only">Select Asset</label>
+                    <select id="assetSelect" class="select-input">
+                        <option value="BTCUSDT">BTC / USDT (Live Binance)</option>
+                        <option value="ETHUSDT">ETH / USDT (Live Binance)</option>
+                        <option value="EURUSD">EUR / USD (Quotex Simulated OTC)</option>
+                        <option value="GBPUSD">GBP / USD (Quotex Simulated OTC)</option>
+                    </select>
+                </div>
+
+                <div class="header-stats">
+                    <div class="stat-pill">
+                        <span class="label">AI WIN RATE</span>
+                        <span class="val success" id="valWinRate">--%</span>
+                    </div>
+                    <div class="stat-pill">
+                        <span class="label">TOTAL SESSIONS</span>
+                        <span class="val" id="valTotalSessions">0</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Workspace Layout -->
+            <div class="workspace">
+                <!-- Left/Middle Section: Charts, Signals, History -->
+                <div class="workspace-primary">
+                    <!-- Chart Section -->
+                    <div class="card chart-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Live Market Execution (1m)</h3>
+                            <div class="card-actions">
+                                <span class="badge" id="assetPriceBadge">$--.--</span>
+                            </div>
+                        </div>
+                        <div class="chart-container" id="chartView">
+                            <!-- JS injects canvas here -->
+                        </div>
+                    </div>
+
+                    <!-- Signals Block -->
+                    <div class="card signal-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Active Predictive Signal</h3>
+                            <span class="live-blink-dot"></span>
+                        </div>
+                        <div class="signal-details-grid">
+                            <div class="signal-direction-panel" id="signalDirPanel">
+                                <span class="dir-icon">⌛</span>
+                                <h2 class="dir-text">ANALYZING</h2>
+                                <p class="dir-meta">Computing directional bias...</p>
+                            </div>
+                            <div class="signal-metrics-panel">
+                                <div class="metric-row">
+                                    <span class="lbl">Confidence</span>
+                                    <div class="val-bar-wrapper">
+                                        <div class="val-bar" id="confidenceBar" style="width: 0%"></div>
+                                        <span class="val-text" id="confidenceText">0%</span>
+                                    </div>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="lbl">Asset Entry Range</span>
+                                    <span class="val font-mono" id="entryRangeVal">--.--</span>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="lbl">Expiration Duration</span>
+                                    <span class="val font-mono">1 Min (Next Candle)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Signal History Log -->
+                    <div class="card log-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Completed Signal Performance</h3>
+                        </div>
+                        <div class="table-container">
+                            <table class="history-table">
+                                <thead>
+                                    <tr>
+                                        <th>Asset</th>
+                                        <th>Timestamp</th>
+                                        <th>Direction</th>
+                                        <th>Entry Price</th>
+                                        <th>Close Price</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="historyLogBody">
+                                    <tr>
+                                        <td colspan="6" class="empty-placeholder">Waiting for analytical cycle transitions...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Sidebar: Predictive Gauges and Candle Projection -->
+                <aside class="workspace-secondary">
+                    <!-- Probability Forecast -->
+                    <div class="card prediction-card">
+                        <div class="card-header">
+                            <h3 class="card-title">6-Candle Probability Matrix</h3>
+                        </div>
+                        <div class="forecast-list" id="forecastList">
+                            <!-- Dynamic projections inject here -->
+                        </div>
+                    </div>
+
+                    <!-- Mathematical Analytics Gauge -->
+                    <div class="card gauge-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Consensus Divergence</h3>
+                        </div>
+                        <div class="gauge-wrapper">
+                            <svg viewBox="0 0 100 50" class="gauge">
+                                <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#1f2937" stroke-width="8" stroke-linecap="round"/>
+                                <path id="gaugeProgress" d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#3b82f6" stroke-width="8" stroke-linecap="round" stroke-dasharray="125.6" stroke-dashoffset="62.8"/>
+                            </svg>
+                            <div class="gauge-caption">
+                                <h3 id="gaugePercent">50%</h3>
+                                <p id="gaugeBias">NEUTRAL STATE</p>
+                            </div>
+                        </div>
+                        <div class="signals-summary">
+                            <div class="indicator-tag" id="tagRsi">RSI: <span class="val">--</span></div>
+                            <div class="indicator-tag" id="tagMacd">MACD: <span class="val">--</span></div>
+                            <div class="indicator-tag" id="tagBollinger">BB: <span class="val">--</span></div>
+                            <div class="indicator-tag" id="tagPatterns">Pattern: <span class="val">None</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Risk/Volatility Matrix -->
+                    <div class="card matrix-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Security & Volatility Index</h3>
+                        </div>
+                        <div class="matrix-content">
+                            <div class="matrix-item">
+                                <span class="lbl">Trend Vector</span>
+                                <span class="val badge-neutral" id="trendVector">DETERMINING</span>
+                            </div>
+                            <div class="matrix-item">
+                                <span class="lbl">ATR (14) Index</span>
+                                <span class="val font-mono" id="valAtr">--.----</span>
+                            </div>
+                            <div class="matrix-item">
+                                <span class="lbl">Volatility Envelope</span>
+                                <span class="val" id="volEnvelope">NORMAL</span>
+                            </div>
+                            <div class="matrix-item">
+                                <span class="lbl">AI Trading Risk</span>
+                                <span class="val font-semibold" id="riskRating">CALCULATING</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </main>
+    </div>
+
+    <!-- Orchestration Bootstrapper -->
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
