@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuantumAI - Secure Gateway Access</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="glow-overlay"></div>
+    <div class="login-wrapper">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="logo">
+                    <span class="icon">⚡</span>
+                    <span class="text">QUANTUM<span class="highlight">AI</span></span>
+                </div>
+                <h2>System Verification Required</h2>
+                <p>Enter your institutional terminal credentials</p>
+            </div>
+
+            <form id="loginForm" class="login-form">
+                <div class="alert alert-danger hidden" id="loginAlert">
+                    Invalid access credentials.
+                </div>
+                
+                <div class="form-group">
+                    <label for="username">Terminal Operator</label>
+                    <input type="text" id="username" placeholder="Username (steven)" required autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Access Encryption Key</label>
+                    <input type="password" id="password" placeholder="Password (1122)" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block" id="loginBtn">
+                    <span>Authenticate Key</span>
+                </button>
+            </form>
+            <div class="login-hint">
+                <p>Default Terminal access: <strong>steven</strong> / <strong>1122</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/auth.js"></script>
+</body>
+</html>
